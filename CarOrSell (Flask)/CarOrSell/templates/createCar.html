@@ -1,0 +1,25 @@
+{% extends "base_admin.html" %} white paper
+{% block title %}Sell car | CarOrSell{% endblock %}
+
+{% block content %}
+{% from "includes/_sellFormHelper.html" import render_field %}
+<h1 class="fw-bold text-center py-4 px-2">Add Car to Inventory</h1>
+<hr>
+
+<form method="POST" action="">
+    <div class="text-left">
+        <div class="mb-3 mx-auto" style="max-width: 750px;">
+            {{ render_field(form.car_brand, class="form-control", style="list-style-type:none") }}
+        </div>
+        <div class="mb-3 mx-auto" style="max-width: 750px;">
+            {{ render_field(form.car_model, class="form-control") }}
+        </div>
+        <div class="mb-3 mx-auto" style="max-width: 750px;">
+            {{ render_field(form.car_price, class="form-control") }}
+        </div>
+        <div class="mx-auto" style="max-width: 750px;">
+            <input type="submit" value="Create Car" class="btn btn-info w-100">
+        </div>
+    </div>
+</form>
+{% endblock %}
