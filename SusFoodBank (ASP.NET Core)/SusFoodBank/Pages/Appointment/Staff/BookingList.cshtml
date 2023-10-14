@@ -1,0 +1,63 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.Staff.BookingListModel
+@{
+    ViewData["Title"] = "Booking List";
+}
+
+<div class="container my-4">
+    <div class="card">
+        <div class="card-body my-3">
+            <h3 class="fw-bold text-center mb-3">Booking List</h3>
+            <p class="text-center">Bookings made by users are displayed below.</p>
+            <hr />
+            @await Html.PartialAsync("_FlashMessage")
+            @{
+                if (Model.BookingList.Count == 0)
+                {
+                    <div class="text-center">
+                        <p>No one has booked any visitation appointments as of now.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive-xxl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 85px;">Booking ID</th>
+                                    <th scope="col" style="width: 135px;">Appointment Date</th>
+                                    <th scope="col" style="width: 135px;">Appointment Time Slot</th>
+                                    <th scope="col" style="width: 100px;">Status</th>
+                                    <th scope="col" style="width: 170px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var booking in Model.BookingList)
+                                {
+                                    <tr>
+                                        <th scope="row">@booking.BookingId</th>
+                                        <td>@booking.Slot.SlotDate.ToString("dd MMMM yyyy")</td>
+                                        <td>@booking.Slot.SlotSession.SlotTime.ToShortTimeString()</td>
+                                        <td>
+                                            @if (booking.BookingStatus == "Confirmed")
+                                            {
+                                                <span class="badge rounded-pill text-bg-warning">pending</span>
+                                            }
+                                            else if (booking.BookingStatus == "Completed")
+                                            {
+                                                <span class="badge rounded-pill text-bg-success">completed</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a asp-page="/Appointment/Staff/BookingInfo" asp-route-id="@booking.BookingId" class="btn btn-secondary">View Booking</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

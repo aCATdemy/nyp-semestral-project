@@ -1,0 +1,95 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.BookModel
+@{
+    ViewData["Title"] = "Book Visitation Appointment";
+}
+
+<div class="container my-4">
+    <div class="card py-3 mx-auto" style="max-width: 800px;">
+        <div class="card-body">
+            <h3 class="fw-bold text-center mb-3">Book Visitation Appointment</h3>
+            <div class="alert alert-info mb-0" role="alert">
+                <p class="fw-bold mb-1">
+                    <i class="fa-regular fa-circle-question me-1"></i>Please read before booking a visitation appointment:
+                </p>
+                <ul class="mb-0">
+                    <li>Booking a visitation appointment gives you priority to be served over walk-in donors when you arrive at our food bank.</li>
+                    <li>Please ensure you can show up for the selected date and time slot, as late-comers will not have queue priority and need to join the existing queue.</li>
+                </ul>
+            </div>
+
+            <hr />
+            @await Html.PartialAsync("_FlashMessage")
+            <a asp-page="/Appointment/Book" class="btn btn-secondary mb-3">Refresh Slots Availability</a>
+
+            <div class="mb-1">
+                <small>
+                    <span class="fw-bold">Note:</span> Date and time slots displayed are in UTC+8 &lpar;Singapore time&rpar;.
+                </small>
+            </div>
+            <div class="mb-3">
+                <h5 class="fw-bold">
+                    <i class="fa-regular fa-calendar me-1"></i>Appointment Date
+                </h5>
+                <div class="mb-4">
+                    <p class="mb-1">Please select an appointment date:</p>
+                    <form method="get" asp-page-handler="DateSelector">
+                        <input type="hidden" name="handler" value="DateSelector" />
+                        <input type="date" class="form-control" asp-for="DateSelected" name="SelectedDate" style="max-width: 350px;" onchange="this.form.submit()" />
+                        <span class="text-danger"></span>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="fw-bold">
+                    <i class="fa-regular fa-clock me-1"></i>Appointment Time Slot
+                </h5>
+                @{
+                    if (Model.SlotList.Count == 0)
+                    {
+                        <p class="fst-italic">No time slot available.</p>
+                    }
+                    else
+                    {
+                        <p class="mb-1">Please select an appointment time slot:</p>
+                        <form method="post">
+                            <div class="mb-2">
+                                <small class="fw-bold fst-italic">Morning slots:</small>
+                                <div class="radio-dts-selector">
+                                    @{
+                                        foreach (var slot in Model.SlotList.Distinct())
+                                        {
+                                            if (slot.SlotSession.SlotSessionId <= 6)
+                                            {
+                                                <input type="radio" asp-for="MySlot.SlotId" id="@slot.SlotId" value="@slot.SlotId">
+                                                <label for="@slot.SlotId">@slot.SlotSession.SlotTime.ToShortTimeString()</label>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <small class="fw-bold fst-italic">Afternoon slots:</small>
+                                <div class="radio-dts-selector">
+                                    @{
+                                        foreach (var slot in Model.SlotList.Distinct())
+                                        {
+                                            if (slot.SlotSession.SlotSessionId >= 7)
+                                            {
+                                                <input type="radio" asp-for="MySlot.SlotId" id="@slot.SlotId" value="@slot.SlotId">
+                                                <label for="@slot.SlotId">@slot.SlotSession.SlotTime.ToShortTimeString()</label>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Booking</button>
+                        </form>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

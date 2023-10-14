@@ -1,0 +1,98 @@
+﻿@page
+@model SusFoodBank.Pages.Listing.CreateModel
+@{
+    ViewData["Title"] = "Create Listing";
+}
+
+<div class="container-sm">
+    <br>
+
+<h1 class="display-4">@ViewData["Title"]</h1>
+<form class="mt-3" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Name"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Item.Name" />
+                    <span asp-validation-for="Item.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Description"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Item.Description" />
+                    <span asp-validation-for="Item.Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Contact"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Item.Contact" />
+                    <span asp-validation-for="Item.Contact" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Location"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Item.Location" />
+                    <span asp-validation-for="Item.Location" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Expiry"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Item.Expiry" />
+                    <span asp-validation-for="Item.Expiry" class="text-danger"></span>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="Item.Halal"></label>
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.Item.Halal, new { @checked = Model.Item.Halal})
+                    <span asp-validation-for="Item.Halal" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-md-4">
+                        <div class="mb-3">
+                            <input type="file" accept="image/*" asp-for="Upload" class="form-control" onchange="showImgPreview(this)" />
+                <span asp-validation-for="Upload" class="text-danger"></span>
+            </div>
+
+            <img id="imgPreview" src="/uploads/listingimage.jpg" />
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" value="Add" class="btn btn-primary" />
+        <a class="login-btn btn-secondary ms 2" asp-page="/listing/index">Cancel</a>
+
+</div>
+<br>
+</form>
+</div>
+<script>
+    function showImgPreview(input) {
+        if (input.files[0]) {
+            var uploadimg = new FileReader();
+            uploadimg.onload = function(displayimg) {
+                $("#imgPreview").attr('src', displayimg.target.result);
+            }
+            uploadimg.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

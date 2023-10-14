@@ -1,0 +1,56 @@
+﻿@page
+@model SusFoodBank.Pages.FAQs.QuestionDetailsModel
+@{
+ViewData["Title"] = "Questions Details";
+}
+<style>
+
+a[id=view]:hover {
+    background-color: deepskyblue
+}
+a[id=Add]:hover {
+    background-color: deepskyblue
+}
+.container2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  outline:thin;
+  outline-color:black;
+  outline-width:thin;
+}
+</style>
+<div class="container container2" mt-4>
+    @await Html.PartialAsync("_FlashMessage")
+<h1 class="display-4">@ViewData["Title"]</h1>
+
+<form class="mt-3" method="post" >
+    <div asp-validation-summary="All" class="text-danger"></div>
+     <div class="row mb-3" hidden>
+                <label class="col-sm-2 col-form-label" asp-for="Questions.Id" hidden></label>
+                <div class="col-sm-10" hidden>
+                    <input class="form-control" asp-for="Questions.Id" hidden/>
+                </div>
+            </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" asp-for="Questions.Title"></label>
+        <div class="col-sm-10">
+                    <input class="form-control" asp-for="Questions.Title"  />
+            <span asp-validation-for="Questions.Title" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" asp-for="Questions.Description"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Questions.Description" />
+            <span asp-validation-for="Questions.Description" class="text-danger"></span>
+        </div>
+    </div>
+<div>
+        <input type="submit" value="Update" class="btn btn-primary" id="Update" />
+        <input type="submit"  class="btn btn-danger" asp-page-handler="Delete" value="Delete" id="Delete"/>
+                <a class="btn btn-secondary ms-2" asp-page="/FAQs/ViewAllQuestions">Cancel</a>
+    </div>
+</form>
+</div>

@@ -1,0 +1,66 @@
+﻿@page
+@model SusFoodBank.Pages.FAQs.FoodDetailsModel
+@{
+    ViewData["Title"] = "Food Items Details";
+}
+
+<style>
+
+a[id=view]:hover {
+    background-color: deepskyblue
+}
+a[id=Add]:hover {
+    background-color: deepskyblue
+}
+.container2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  outline:thin;
+  outline-color:black;
+  outline-width:thin;
+}
+</style>
+<div class="container container2 mt-4">
+    @await Html.PartialAsync("_FlashMessage")
+    <h2>@ViewData["Title"]</h2>
+    <h4>You can change the food item details and delete here</h4>
+<form class="mt-3" method="post" >
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+     <div class="row mb-3" hidden>
+                <label class="col-sm-2 col-form-label" asp-for="FoodItems.Id" hidden></label>
+                <div class="col-sm-10" hidden>
+                    <input class="form-control" asp-for="FoodItems.Id" hidden/>
+                </div>
+            </div>
+    <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="FoodItems.Name"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="FoodItems.Name"/>
+                    <span asp-validation-for="FoodItems.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="FoodItems.Description"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="FoodItems.Description" />
+                    <span asp-validation-for="FoodItems.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="FoodItems.ExpiryDate"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="FoodItems.ExpiryDate"/>
+                    <span asp-validation-for="FoodItems.ExpiryDate" class="text-danger"></span>
+                </div>
+            </div>
+<div>
+        <input type="submit" value="Update" class="btn btn-primary" id="Update" />
+        <input type="submit"  class="btn btn-danger" asp-page-handler="Delete" value="Delete" id="Delete"/>
+         <a class="btn btn-secondary ms-2" asp-page="/FAQS/ViewAllFood">Cancel</a>
+    </div>
+</form>
+</div>
+

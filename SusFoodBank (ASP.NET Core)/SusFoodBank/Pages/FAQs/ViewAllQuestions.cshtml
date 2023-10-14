@@ -1,0 +1,64 @@
+﻿@page
+@model SusFoodBank.Pages.FAQs.ViewAllQuestionsModel
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+}
+<style>
+
+a[id=view]:hover {
+    background-color: deepskyblue
+}
+a[id=Add]:hover {
+    background-color: deepskyblue
+}
+.container2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  outline:thin;
+  outline-color:black;
+  outline-width:thin;
+}
+</style>
+<div class="container container2 mt-4">
+    @await Html.PartialAsync("_FlashMessage")
+<h2>@ViewData["Title"]</h2>
+<div>
+    <h3>If you wish to see all the food that you can donate to us! Click on the view Button!
+        <a id="view" class="btn btn-secondary ms-2" asp-page="/FAQs/ViewAllFood">View</a>
+        </h3>
+</div>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th hidden>@Html.DisplayNameFor(model => model.QuestionList[0].Id)</th>
+            <th>@Html.DisplayNameFor(model => model.QuestionList[0].Title)</th>
+            <th>@Html.DisplayNameFor(model => model.QuestionList[0].Description)</th>
+            @if (User.IsInRole("Admin"))
+            {
+                    <th>Actions</th>
+                }
+        </tr>
+    </thead>
+    <tbody>
+        
+        @{
+                    @foreach (var item in Model.QuestionList)
+            {
+                        <tr>
+                            <td hidden>@item.Id</td>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td>
+                                <a id="view" class ="btn btn-primary btn-sm" asp-page="/FAQs/QuestionDetails" asp-route-id="@item.Id">View</a>
+                                </td>
+                            }
+                    </tr>
+            }
+        }
+    </tbody>
+</table>
+<a id="Add" class="btn btn-primary mt-3" href="/FAQs/AddQuestions">Add Questions</a>
+</div>

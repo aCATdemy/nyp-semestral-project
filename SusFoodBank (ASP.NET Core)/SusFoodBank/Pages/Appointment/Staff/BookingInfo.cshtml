@@ -1,0 +1,64 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.Staff.BookingInfoModel
+@{
+    ViewData["Title"] = "Booking Information";
+}
+
+<div class="container my-4">
+    <div class="card py-3 mx-auto" style="max-width: 800px;">
+        <div class="card-body">
+            <h3 class="fw-bold text-center mb-3">Visitation Appointment Details</h3>
+            <p>Dear SusFoodBank Staff,</p>
+            <p class="mb-0">Please find below the details of the visitation appointment of the user:</p>
+            <ul class="list-unstyled my-4">
+                <li>
+                    <span class="fw-bold"><i class="fa-regular fa-calendar me-1"></i>Appointment Date: </span>@Model.MyBooking.Slot.SlotDate.ToString("dd MMMM yyyy")
+                </li>
+                <li>
+                    <span class="fw-bold"><i class="fa-regular fa-clock me-1"></i>Appointment Time Slot: </span>@Model.MyBooking.Slot.SlotSession.SlotTime.ToShortTimeString()
+                </li>
+            </ul>
+
+            <div class="mb-3">
+                <p class="mb-0">Thank you.</p>
+                <p class="fst-italic">~ SusFoodBank</p>
+            </div>
+
+            <div class="mb-2">
+                <div class="d-grid gap-2 d-md-block">
+                    @if (Model.MyBooking.BookingStatus != "Completed")
+                    {
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#completeModal">Mark as Completed</button>
+                    }
+                    <a asp-page="/Appointment/Staff/BookingList" class="btn btn-link">
+                        <i class="fa-solid fa-clock-rotate-left me-1"></i>Back to List
+                    </a>
+                </div>
+            </div>
+            <small class="fst-italic">Booking ID: @Model.MyBooking.BookingId</small>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="completeModal" tabindex="-1" aria-labelledby="completeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="completeModalLabel">Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Do you want to mark this appointment as completed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal">No, take me back!</button>
+                <form method="post">
+                    <input type="hidden" asp-for="MyBooking.BookingId" value="@Model.MyBooking.BookingId" />
+                    <input type="hidden" asp-for="MyBooking.SlotId" value="@Model.MyBooking.SlotId" />
+                    <input type="hidden" asp-for="MyBooking.ApplicationUserId" value="@Model.MyBooking.ApplicationUserId" />
+                    <button type="submit" class="btn btn-success">Mark as Completed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.Staff.ConsoleModel
+@{
+    ViewData["Title"] = "Appointment Slots Console";
+}
+
+<div class="container my-4">
+    <div class="card">
+        <div class="card-body my-3">
+            <h3 class="fw-bold text-center mb-3">Appointment Slots Console</h3>
+            <div class="alert alert-info mb-0" role="alert">
+                <p class="fw-bold mb-1">
+                    <i class="fa-regular fa-circle-question me-1"></i>Console Guide:
+                </p>
+                <ul class="mb-0">
+                    <li>
+                        Add slots by clicking on <span class="badge rounded-pill text-bg-primary">Add Slot</span>
+                    </li>
+                    <li>Use the datepicker to view slot status for that particular date.</li>
+                    <li>
+                        Slots marked as <span class="badge rounded-pill text-bg-success">available</span> means it has not been booked yet.
+                    </li>
+                    <li>
+                        Slots marked as <span class="badge rounded-pill text-bg-danger">booked</span> means it has been booked by a user.
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <div class="mb-3">
+                <a asp-page="/Appointment/Staff/Add" class="btn btn-primary">Add Slot</a>
+                <a asp-page="/Appointment/Staff/BookingList" class="btn btn-secondary">View Booking List</a>
+            </div>
+            <div class="mb-1">
+                <small>
+                    <span class="fw-bold">Note:</span> Date and time slots displayed are in UTC+8 &lpar;Singapore time&rpar;.
+                </small>
+            </div>
+            <div class="mb-3">
+                <h5 class="fw-bold">
+                    <i class="fa-regular fa-calendar me-1"></i>Appointment Date
+                </h5>
+                <p class="mb-1">Select appointment date to view slots:</p>
+                <form method="get">
+                    <input type="hidden" name="handler" value="DateSelector" />
+                    <input type="date" class="form-control" asp-for="DateSelected" name="date" style="max-width: 350px;" onchange="this.form.submit()" />
+                </form>
+            </div>
+
+            @{
+                if (Model.SlotList.Count == 0)
+                {
+                    <p>There are no slots for this date. You may wish to add some.</p>
+                }
+                else
+                {
+                    <div class="table-responsive-xxl">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 85px;">Slot ID</th>
+                                    <th scope="col" style="width: 135px;">Appointment Date</th>
+                                    <th scope="col" style="width: 135px;">Appointment Time Slot</th>
+                                    <th scope="col" style="width: 170px">Availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var slot in Model.SlotList)
+                                {
+                                    <tr>
+                                        <th scope="row">@slot.SlotId</th>
+                                        <td>@slot.SlotDate.ToString("dd MMMM yyyy")</td>
+                                        <td>@slot.SlotSession.SlotTime.ToShortTimeString()</td>
+                                        <td>
+                                            @if (slot.SlotAvailability)
+                                            {
+                                                <span class="badge rounded-pill text-bg-success">available</span>
+                                            }
+                                            else if (!slot.SlotAvailability)
+                                            {
+                                                <span class="badge rounded-pill text-bg-danger">booked</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

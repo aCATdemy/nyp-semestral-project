@@ -1,0 +1,109 @@
+﻿@page
+@model SusFoodBank.Pages.Listing.DetailsModel
+@{
+    ViewData["Title"] = "Item Details";
+}
+<div class="container-sm">
+    <br>
+<h1 class="display-4">@ViewData["Title"]</h1>
+
+<form class="mt-3" method="post" enctype="multipart/form-data">
+    <div class="row">
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" asp-for="items.Id">
+        </label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="items.Id" readonly />
+            <span asp-validation-for="items.Id" class="text-danger"></span>
+        </div>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="items.Name"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="items.Name" />
+                    <span asp-validation-for="items.Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="items.Description"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="items.Description" />
+                    <span asp-validation-for="items.Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="items.Contact"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="items.Contact" />
+                    <span asp-validation-for="items.Contact" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="items.Location"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="items.Location" />
+                    <span asp-validation-for="items.Location" class="text-danger"></span>
+                </div>
+            </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" asp-for="items.Expiry"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="items.Expiry" />
+                        <span asp-validation-for="items.Expiry" class="text-danger"></span>
+                    </div>
+                </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" asp-for="items.Halal"></label>
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.items.Halal, new { @checked = Model.items.Halal})
+                    <span asp-validation-for="items.Halal" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <input type="file" accept="image/*" asp-for="Upload" class="form-control" onchange="showImgPreview(this)" />
+                        <span asp-validation-for="Upload" class="text-danger"></span>
+                    </div>
+                    <img id="imgPreview"
+                             src="@(string.IsNullOrEmpty(Model.items.ImageFile) ? "/uploads/listingimage.jpg" : Model.items.ImageFile)"
+                             onerror="this.src='/uploads/listingimage.jpg'" />
+                        <input class="form-control d-none" asp-for="items.ImageFile" />
+                </div>
+            </div>
+            <div>
+                    <input type="submit" value="Update" class="btn btn-primary" id="Update" />
+                    <input type="submit"  class="btn btn-danger" asp-page-handler="Delete" value="Delete" id="Delete"/>
+                    <a class="btn btn-secondary ms-2" href="/listing">Cancel</a>
+    </div>
+    <br>
+</form>
+</div>
+<script>
+    function showImgPreview(input) {
+        if (input.files[0]) {
+            var uploadimg = new FileReader();
+            uploadimg.onload = function (displayimg) {
+                $("#imgPreview").attr('src', displayimg.target.result);
+            }
+            uploadimg.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

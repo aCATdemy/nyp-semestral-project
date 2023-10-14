@@ -1,0 +1,71 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.DetailsModel
+@{
+    ViewData["Title"] = "Visitation Appointment Details";
+}
+
+<div class="container my-4">
+    <div class="card py-3 mx-auto" style="max-width: 800px;">
+        <div class="card-body">
+            <h3 class="fw-bold text-center mb-3">Visitation Appointment Details</h3>
+            <p>Dear Sir/Madam,</p>
+            <p class="mb-0">Please find below the details of your visitation appointment:</p>
+            <ul class="list-unstyled my-4">
+                <li>
+                    <span class="fw-bold"><i class="fa-regular fa-calendar me-1"></i>Appointment Date: </span>@Model.MyBooking.Slot.SlotDate.ToString("dd MMMM yyyy")
+                </li>
+                <li>
+                    <span class="fw-bold"><i class="fa-regular fa-clock me-1"></i>Appointment Time Slot: </span>@Model.MyBooking.Slot.SlotSession.SlotTime.ToShortTimeString()
+                </li>
+                <li>
+                    <span class="fw-bold"><i class="fa-solid fa-location-dot me-1"></i>Address: </span>
+                    <br />
+                    SusFoodBank
+                    <br />
+                    180 Ang Mo Kio Avenue 8
+                    <br />
+                    Singapore 569830
+                </li>
+            </ul>
+            <div class="mb-3">
+                <small class="fw-bold text-danger">Please be reminded to arrive at least five minutes before your appointment time slot. Latecomers will be issued a new queue ticket and asked to join the queue.</small>
+            </div>
+            <div class="mb-3">
+                <p class="mb-0">Thank you.</p>
+                <p class="fst-italic">~ SusFoodBank</p>
+            </div>
+            <div class="mb-2">
+                <div class="d-grid gap-2 d-md-block">
+                    @if (Model.MyBooking.BookingStatus != "Completed")
+                    {
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel Appointment</button>
+                    }
+                    <a asp-page="/Appointment/Index" class="btn btn-secondary">
+                        <i class="fa-solid fa-clock-rotate-left me-1"></i>Back to History
+                    </a>
+                </div>
+            </div>
+            <small class="fst-italic">Booking ID: @Model.MyBooking.BookingId</small>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cancelModalLabel">Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Do you want to cancel this appointment?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal">No, take me back!</button>
+                <form method="post">
+                    <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

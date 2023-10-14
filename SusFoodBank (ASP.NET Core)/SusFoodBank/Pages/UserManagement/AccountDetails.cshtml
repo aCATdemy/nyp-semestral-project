@@ -1,0 +1,137 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity;
+@using SusFoodBank.Models;
+@model SusFoodBank.Pages.UserManagement.AccountDetailsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var usr = await UserManager.GetUserAsync(User);
+    var email = usr?.Email;
+    var sus = "";
+    if (usr.Suspended == true)
+    {
+        sus = "Suspended";
+    }
+    else
+    {
+        sus = "normal";
+    }
+}
+<div class="container my-4">
+    
+
+        <div class="row">
+            <div class="col">
+                <div class="card py-3 mx-auto ">
+                <div class="card-body text-center">
+                    <div class="row"></div>
+                    <img class="rounded-circle" src=@usr?.ImageURL style="width:200px; height:200px" />
+                <div>
+                        <a asp-page="/UserManagement/Changepassworduser" class="btn btn-primary">
+                        
+                        <i class="solid me-1"></i>Update password
+                    </a>
+            </div>
+            <div >
+                        <a asp-page="/UserManagement/Update" class="btn btn-primary">
+                        <i class=" solid me-1"></i>Update Particulars
+                    </a>
+            </div>
+                <div>
+                    <form asp-page-handler="DeleteAcc" method="post">
+                        <button class="btn btn-primary solid me-1">Delete account(debug)</button>
+                    </form>
+                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card py-3 mx-auto" style="max-width: 1000px;">
+                    <div class="card-body">
+                    <h3 class="fw-bold text-center mb-3">Account Details</h3>
+                        <hr />
+                        <br />
+                    <div class="text-center">
+                        <p>Username: @usr?.FullName</p>
+                        <p>Email: @usr?.Email</p>
+                        <p>Gender: @usr?.Gender</p>
+                        <p>Status: @sus</p>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+        <div class=" py-3 mx-auto" style="max-width: 1000px;">
+            <h1 class="fw-bold text-center mb-3">Statistics</h1>
+            </div>
+    </div>
+        <div class="row">
+            <div class="col">
+                <div class="card py-3 mx-auto" style="">
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                </div>
+            </div>
+        <div class="col">
+            <div class="card py-3 mx-auto" style="">
+                <div>
+                    <canvas id="totallogin"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: @Html.Raw(Model.datelist),
+      datasets: [{
+        label: 'No of times logged in',
+        data: @Html.Raw(Model.datevalue),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+              suggestedMin: 50,
+                    suggestedMax: 100
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const totallogin = document.getElementById('totallogin');
+
+  new Chart(totallogin, {
+    type: 'bar',
+    data: {
+      labels: ["Total times logged in"],
+      datasets: [{
+        label: 'No of times logged in',
+        data: [@Model.NoLogin],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+              suggestedMin: 5,
+                    suggestedMax: 10
+        }
+      }
+    }
+  });
+</script>

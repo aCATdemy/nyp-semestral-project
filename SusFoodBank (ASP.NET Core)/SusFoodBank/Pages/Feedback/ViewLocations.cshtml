@@ -1,0 +1,54 @@
+﻿@page
+@model SusFoodBank.Pages.Feedback.ViewLocationsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<div class="col-sm-12" style="margin-top:25px">
+    <div class="text-center">
+        <h1>Thanks for the feedback!</h1><br />
+        <p>
+            Or click here to view add another location suggestion
+
+            <a class="btn btn-secondary ms-3" asp-page="/feedback/AddLocation">Add</a>
+        </p>
+    </div>
+
+    <div>
+        <p></p>
+    </div>
+
+    <div class="container-sm" style="margin-top:25px">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th hidden>@Html.DisplayNameFor(model => model.LocationList[0].Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.LocationList[0].Location)</th>
+                    <th>@Html.DisplayNameFor(model => model.LocationList[0].Reason)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    @foreach (var item in Model.LocationList)
+                    {
+                        <tr>
+                            <td hidden>@item.Id</td>
+                            <td>@item.Location</td>
+                            <td>@item.Reason</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" asp-page="/feedback/LocationDetails" asp-route-id="@item.Id">View</a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

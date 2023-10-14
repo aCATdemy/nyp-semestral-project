@@ -1,0 +1,50 @@
+﻿@page
+@model SusFoodBank.Pages.UserManagement.LoginModel
+@{
+	ViewData["Title"] = "Login";
+}
+
+<div class="container my-4">
+    <div class="card mx-auto" style="max-width: 450px;">
+        <div class="card-body my-3">
+            <div class="text-center">
+                <h1>
+                    <i class="fa-solid fa-plate-wheat"></i>
+                </h1>
+                <h3 class="fw-bold mb-4">Login</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="LModel.Email" class="form-control" id="Email" placeholder="name@example.com" />
+                    <label for="Email" asp-for="LModel.Email">Email Address</label>
+                    <small>
+                        <span asp-validation-for="LModel.Email" class="text-danger"></span>
+                    </small>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" asp-for="LModel.Password" class="form-control" id="Password" placeholder="Password" />
+                    <label for="Password" asp-for="LModel.Password">Password</label>
+                    <small>
+                        <span asp-validation-for="LModel.Password" class="text-danger"></span>
+                    </small>
+                    <br />
+                    <small>
+                        <a asp-page="/UserManagement/forgetpass">Help, I forgot my password!</a>
+                    </small>
+                </div>
+
+                <div class="row">
+                    <div class="col-auto me-auto">
+                        <a asp-page="/UserManagement/Register" class="btn btn-link">Register</a>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

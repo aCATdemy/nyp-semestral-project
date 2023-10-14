@@ -1,0 +1,26 @@
+﻿@page
+@model SusFoodBank.Pages.UserManagement.LogoutModel
+@{
+    ViewData["Title"] = "Logout Confirmation";
+}
+
+<div class="my-4">
+    <div class="card mx-auto" style="max-width: 450px;">
+        <div class="card-body my-3">
+            <div class="mb-5">
+                <h3 class="fw-bold mb-4">Logout Confirmation</h3>
+                <p>You are about to be logged out.</p>
+                <p>Please note that your current session will end if you proceed. You will need to re-enter your credentials the next time you visit this website.</p>
+                <small class="fw-bold text-danger">
+                    <i class="fa-solid fa-user-secret me-1"></i>To better protect your account, please clear your browser cache and cookies if you are on a public computer.
+                </small>
+            </div>
+            <form method="post">
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn btn-primary" asp-page-handler="Logout">Logout</button>
+                    <button class="btn btn-link" onclick="javascript:window.history.back(-1);return false;">No, take me back!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

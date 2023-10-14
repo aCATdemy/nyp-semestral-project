@@ -1,0 +1,86 @@
+﻿@page
+@model SusFoodBank.Pages.FAQs.AddFoodItemsModel
+@{
+    ViewData["Title"] = "Add Food Item";
+}
+<style>
+* {
+  box-sizing: border-box;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+.col-25 {
+  float: left;
+  width: 20%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 80%;
+  margin-top: 6px;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+.container2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+a[id=Cancel]:hover {
+    background-color: red
+}
+
+</style>
+<div class="container container2 mt-3" asp-validation-summary="All" class="text-danger">
+<form class="mt-3" method="post">
+
+        @await Html.PartialAsync("_FlashMessage")
+    <h2>Add Food Item</h2>
+    <h4>Add a food item here that is donatable to the food bank, and describe what it is and how long the desirable minimum expiry date is!</h4>
+    <div class="row mb-3 ">
+        <div class="col-25">
+        <label class="col-sm-2 col-form-label" asp-for="FoodItems.Name" id="FoodItems.Name"></label>
+        </div>
+        <div class="col-75">
+            <input class="form-control" type="text"  asp-for="FoodItems.Name" oninput="this.value = this.value()" placeholder="Food Item Name"/>
+            <span asp-validation-for="FoodItems.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-25">
+        <label class="col-sm-2 col-form-label" asp-for="FoodItems.Description"></label>
+        </div>
+        <div class="col-75">
+            <input class="form-control" type="text"  asp-for="FoodItems.Description" oninput="this.value = this.value()" placeholder="Description Of The Food Item"/>
+            <span asp-validation-for="FoodItems.Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-25">
+        <label class="col-sm-2 col-form-label" asp-for="FoodItems.ExpiryDate"></label>
+        </div>
+        <div class="col-75">
+            <input class="form-control" asp-for="FoodItems.ExpiryDate" oninput="this.value = this.value()" placeholder="State minimum expiry date of the food item"/>
+            <span asp-validation-for="FoodItems.ExpiryDate" class="text-danger"></span>
+        </div>
+    </div>
+     <div>
+        <input type="submit" value="Add" class="btn btn-primary" />
+        <a id="Cancel" asp-page="/FAQs/ViewAllFood" class="btn btn-secondary ms-2" >Cancel</a>
+    </div>
+
+</form>
+</div>

@@ -1,0 +1,91 @@
+﻿@page
+@model SusFoodBank.Pages.Appointment.Staff.AddModel
+@{
+    ViewData["Title"] = "Add Slots";
+}
+
+<div class="container my-4">
+    <div class="card py-3 mx-auto" style="max-width: 800px;">
+        <div class="card-body">
+            <h3 class="fw-bold text-center mb-3">Add Appointment Slot</h3>
+            <div class="alert alert-info mb-0" role="alert">
+                <p class="fw-bold mb-1">
+                    <i class="fa-regular fa-circle-question me-1"></i>Staff Guide:
+                </p>
+                <ul class="mb-0">
+                    <li>Select an appointment date to display a list of available slots to add.</li>
+                    <li>Please note that there can only be one session per time slot.</li>
+                </ul>
+            </div>
+
+            <hr />
+            @await Html.PartialAsync("_FlashMessage")
+            <div class="mb-1">
+                <small>
+                    <span class="fw-bold">Note:</span> Date and time slots displayed are in UTC+8 &lpar;Singapore time&rpar;.
+                </small>
+            </div>
+            <div class="mb-3">
+                <h5 class="fw-bold">
+                    <i class="fa-regular fa-calendar me-1"></i>Appointment Date
+                </h5>
+                <p class="mb-1">Select appointment date:</p>
+                <form method="get">
+                    <input type="hidden" name="handler" value="DateSelector" />
+                    <input type="date" class="form-control" asp-for="DateSelected" name="date" style="max-width: 350px;" onchange="this.form.submit()" />
+                </form>
+            </div>
+
+            <div>
+                <h5 class="fw-bold">
+                    <i class="fa-regular fa-clock me-1"></i>Appointment Time Slot
+                </h5>
+                @{
+                    if (Model.SlotSessionList.Count == 0)
+                    {
+                        <p class="fst-italic">No time slot is available to be added for this date.</p>
+                    }
+                    else
+                    {
+                        <p class="mb-1">Please select an appointment time slot:</p>
+                        <form method="post">
+                            <input type="hidden" asp-for="MySlot.SlotDate" value="@Model.DateSelected">
+                            <div class="mb-2">
+                                <small class="fw-bold fst-italic">Morning slots:</small>
+                                <div class="radio-dts-selector">
+                                    @{
+                                        foreach (var slot in Model.SlotSessionList.Distinct())
+                                        {
+                                            if (slot.SlotSessionId <= 6)
+                                            {
+                                                <input type="radio" asp-for="MySlot.SlotSessionId" id="@slot.SlotSessionId" value="@slot.SlotSessionId">
+                                                <label for="@slot.SlotSessionId">@slot.SlotTime.ToShortTimeString()</label>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <small class="fw-bold fst-italic">Afternoon slots:</small>
+                                <div class="radio-dts-selector">
+                                    @{
+                                        foreach (var slot in Model.SlotSessionList.Distinct())
+                                        {
+                                            if (slot.SlotSessionId >= 7)
+                                            {
+                                                <input type="radio" asp-for="MySlot.SlotSessionId" id="@slot.SlotSessionId" value="@slot.SlotSessionId">
+                                                <label for="@slot.SlotSessionId">@slot.SlotTime.ToShortTimeString()</label>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">Add Slot</button>
+                        </form>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
