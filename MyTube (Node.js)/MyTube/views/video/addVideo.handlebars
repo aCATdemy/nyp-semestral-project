@@ -1,0 +1,71 @@
+<h2 class="fw-bold text-center mb-4">Video Upload</h2>
+
+<form action="" method="post">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-7 mb-3">
+            {{!-- Video Title --}}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="title" id="title" placeholder="Video Title" onblur="initialiseTitle()" required>
+                <label for="title">Video Title</label>
+            </div>
+
+            {{!-- Video Description --}}
+            <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Video Description (max characters: 2000)" name="description" id="description" maxlength="2000" style="height: 300px" required></textarea>
+                <label for="description">Video Description &lpar;max characters: 2000&rpar;</label>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-5">
+            {{!-- Video Upload --}}
+            <div class="mb-3">
+                <p class="fw-bold mb-0">Upload Video:</p>
+                <div class="input-group">
+                    <input type="file" class="form-control" name="videoUpload" id="videoUpload" onchange="videoFile(event)" accept="video/mp4" required>
+                </div>
+                <small>Supported file format: MP4</small>
+            </div>
+
+            {{!-- Thumbnail Upload --}}
+            <div class="mb-3">
+                <p class="fw-bold mb-0">Upload Thumbnail:</p>
+                <div class="input-group">
+                    <input type="file" class="form-control" name="posterUpload" id="posterUpload" onchange="thumbnailFile(event)" accept="image/png, image/jpeg, image/jpg, image/gif">
+                    <img id="imageOutput" width="100%">
+                </div>
+                <small>Supported file formats: PNG, JPEG, JPG, GIF</small>
+            </div>
+
+            <hr>
+            
+            {{!-- Declaration --}}
+            <div class="mb-3">
+                <small>
+					By uploading a video, you agree that your video conforms to the guidelines found in our <a href="/terms-of-use" target="_blank" class="account-a">Terms of Use<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>.
+				</small>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="javascript:history.back()">
+                    <button type="button" class="btn btn-link shadow-none">Cancel</button>
+                </a>
+
+                {{!-- Publish Video Button --}}
+                <button type="submit" class="btn btn-success shadow-none">Publish Video</button>
+            </div>
+
+            {{!-- Hidden field to submit URL of poster to the server --}}
+            <input id="posterURL" type="hidden" name="posterURL">
+            <input id="videoURL" type="hidden" name="videoURL">
+        </div>
+    </div>
+</form>
+
+
+{{!-- Script to display thumbnail --}}
+<script>
+    var thumbnailFile = function(event) {
+        var image = document.getElementById('imageOutput');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>

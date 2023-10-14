@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+    {{#if post}}
+    <input type="hidden" value="{{user.username}}" id="username"/>
+    {{!-- <form method="POST" id="create-post" enctype="multipart/form-data"> --}}
+        <form method="POST" id="update-post" enctype="multipart/form-data">
+            <div class="row gy-3">
+                <div id="post-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/post/{{user.username}}/myPost" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Back to posts">Posts</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update</li>
+                    </ol>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="fw-bolder"><i class="fas fa-edit"></i> Update Post</h2>
+                </div>
+                <div class="col-md-6">
+                    <div class="row gy-3">
+                        <div class="col-md-12">
+                            <label for="title" class="form-label fw-bold">Title: </label>
+                            <input type="text" id="title" class="form-control" name="title" value="{{post.title}}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="description" class="form-label fw-bold">Description: </label>
+                            <textarea class="form-control" rows="3" id="description"
+                                name="description">{{post.description}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row gy-3">
+                        <div class="col-md-12">
+                            <label for="input-item-picture" class="form-label fw-bold">Item Picture</label>
+                            <input type="file" id="file-upload" class="filepond">
+                            {{#forEach post.postfiles}}
+                            <input type="hidden" name="files" value="{{this.imagepath}}" />
+                            {{/forEach}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success mt-2 fw-bold">Update</button>
+                </div>
+            </div>
+        </form>
+        {{/if}}
+</div>
+
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+
+
+<script src="/js/updatePost.js"></script>

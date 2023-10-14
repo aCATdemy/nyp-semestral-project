@@ -1,0 +1,160 @@
+<header class="navbar sticky-top navbar-expand-lg py-1" id="navigation">
+	<div class="container">
+		<a href="/" class="navbar-brand fw-bold link-dark">
+			<img src="/images/logo.png" alt="logo.png" class="d-inline-block align-text-center me-1" id="header-logo">MyTube
+		</a>
+		<button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle Navigation">
+			<i class="fa-solid fa-bars"></i>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarToggler">
+			{{!-- Video search bar --}}
+			<form class="d-flex search-bar mx-auto" action="/search/searchResults" method="post" name="search">
+				<input class="form-control" id="search-box" type="text" placeholder="Search videos" aria-label="Search" name="query" required>
+				<button class="btn btn-light shadow-none" id="video-search-icon" type="submit">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</form>
+
+			<ul class="navbar-nav">
+				{{#if user}}
+				<div class="show-on-mobile">
+					<li class="nav-item">
+						<a class="nav-link link-dark" href="/">
+							<i class="fa-solid fa-house-chimney me-1"></i>Home
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link link-dark" href="/post/{{user.username}}/myPost">
+							<i class="fa-solid fa-paper-plane me-1"></i>Community Posts
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link link-dark" href="/support/dashboard">
+							<i class="fa-solid fa-headset me-1"></i>Help &amp; Support
+						</a>
+					</li>
+					{{#if (eq user.roletypeid 2)}}
+					<li class="nav-item dropdown">
+						<a class="nav-link link-danger dropdown-toggle" href="#" id="mobileAdminDDMLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fa-solid fa-screwdriver me-1"></i>Administrative Actions
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="mobileAdminDDMLink">
+							<li>
+								<a class="dropdown-item" href="/account/listUser">
+									<i class="fa-solid fa-user-group me-1"></i>User Management
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="/support/admin/ticket-overview">
+									<i class="fa-solid fa-envelope-open-text me-1"></i>Ticket Overview
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="/comment/masterComment">
+									<i class="fa-solid fa-comment me-1"></i>Comment Management
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="/post/admin/manage">
+									<i class="fa-solid fa-envelopes-bulk me-1"></i>Post Management
+								</a>
+							</li>
+						</ul>
+					</li>
+					{{/if}}
+				</div>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle link-dark" href="#" id="accountMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fa-solid fa-user me-1"></i>Hi, {{user.username}}
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountMenu">
+						<li>
+							<a class="dropdown-item" href="/account/listProfiles">
+								<i class="fa-solid fa-gear me-1"></i>Account Settings
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="/video/listVideos">
+								<i class="fa-solid fa-film me-1"></i>My Videos
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="/comment/addComment">
+								<i class="fa-solid fa-comment me-1"></i>Manage Comments
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<a class="dropdown-item text-danger" href="/account/logout">
+								<i class="fa-solid fa-arrow-right-from-bracket me-1"></i>Logout
+							</a>
+						</li>
+					</ul>
+				</li>
+				{{else}}
+				<li class="nav-item">
+					<div class="d-grid">
+						<a class="btn btn-success shadow-none" id="login-btn" href="/account/login">Login</a>
+					</div>
+				</li>
+				{{/if}}
+			</ul>
+		</div>
+	</div>
+</header>
+
+{{#if user}}
+<nav class="navbar navbar-expand-lg py-0">
+	<div class="container">
+		<ul class="navbar-nav mx-auto">
+			<li class="nav-item px-1" id="nav-nav-item">
+				<a class="nav-link link-dark" href="/">
+					<i class="fa-solid fa-house-chimney me-1"></i>Home
+				</a>
+			</li>
+			<li class="nav-item px-1" id="nav-nav-item">
+				<a class="nav-link link-dark" href="/post/{{user.username}}/myPost">
+					<i class="fa-solid fa-paper-plane me-1"></i>Community Posts
+				</a>
+			</li>
+			<li class="nav-item px-1" id="nav-nav-item">
+				<a class="nav-link link-dark" href="/support/dashboard">
+					<i class="fa-solid fa-headset me-1"></i>Help &amp; Support
+				</a>
+			</li>
+			{{#if (eq user.roletypeid 2)}}
+			<li class="nav-item dropdown px-1" id="nav-nav-item">
+				<a class="nav-link link-danger dropdown-toggle" href="#" id="navbarAdminDDMLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-solid fa-screwdriver me-1"></i>Administrative Actions
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarAdminDDMLink">
+					<li>
+						<a class="dropdown-item" href="/account/listUser">
+							<i class="fa-solid fa-user-group me-1"></i>User Management
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="/support/admin/ticket-overview">
+							<i class="fa-solid fa-envelope-open-text me-1"></i>Ticket Overview
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="/comment/masterComment">
+							<i class="fa-solid fa-comment me-1"></i>Comment Management
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="/post/admin/manage">
+							<i class="fa-solid fa-envelopes-bulk me-1"></i>Post Management
+						</a>
+					</li>
+				</ul>
+			</li>
+			{{/if}}
+		</ul>
+	</div>
+</nav>
+{{/if}}

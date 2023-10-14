@@ -1,0 +1,63 @@
+<div class="card">
+	<div class="card-body">
+		<div class="row align-items-center">
+			<div class="col-md-5 my-3 text-center">
+				<img src="/images/logo.png" alt="logo.png" class="mb-3" id="account-logo">
+				<h6 class="fw-bold">MyTube ID</h6>
+			</div>
+			<div class="col-md-7 my-3">
+				<h3 class="fw-bold mb-4">Account Registration</h3>
+				<form action="" method="post">
+					{{!-- Username --}}
+					<div class="form-floating mb-3">
+						<input type="text" name="username" class="form-control" id="username" value="{{username}}" placeholder="Username" required>
+						<label for="username">Username</label>
+					</div>
+
+					{{!-- Email Address --}}
+					<div class="form-floating mb-3">
+						<input type="email" name="email" class="form-control" id="email" value="{{email}}" placeholder="Email Address" required>
+						<label for="email">Email Address</label>
+					</div>
+
+					{{!-- Phone Number --}}
+                    <div class="form-floating mb-3">
+                        <input type="tel" name="telephone" class="form-control" id="telephone" value="{{telephone}}" maxlength="8" placeholder="Phone Number (+65 only)" required>
+                        <label for="telephone">Phone Number &lpar;+65 only&rpar;</label>
+                    </div>
+
+					{{!-- Password --}}
+					<div class="form-floating mb-3">
+						<input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+						<label for="password">Password</label>
+					</div>
+
+					{{!-- Confirm Password --}}
+					<div class="form-floating mb-3">
+						<input type="password" name="password2" class="form-control" id="password2" placeholder="Confirm Password" required>
+						<label for="password2">Confirm Password</label>
+					</div>
+
+					<div class="mb-4">
+						<small>
+							By creating a MyTube ID, you agree to be bound by the <a href="/terms-of-use" target="_blank" class="account-a">Terms of Use<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>.
+						</small>
+						<br>
+						<small>
+							In addition, you agree with how MyTube process and use your data according to our <a href="/privacy-policy" target="_blank" class="account-a">Privacy Policy<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>.
+						</small>
+					</div>
+
+					<div class="d-flex justify-content-between align-items-center">
+						<a href="/account/login" class="account-a fw-bold">
+							<i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Login Instead
+						</a>
+						
+						{{!-- Register Button --}}
+						<button type="submit" class="btn btn-success shadow-none">Register</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

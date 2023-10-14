@@ -1,0 +1,83 @@
+<div class="d-flex justify-content-center">
+    <input type="hidden" value="{{user.username}}" id="username" />
+    <input type="hidden" value="{{id}}" id="username" />
+    {{!-- <form method="POST" id="create-post" enctype="multipart/form-data"> --}}
+        <form method="POST" id="create-post" enctype="multipart/form-data">
+            <div class="row gy-3">
+                <div id="post-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/post/{{user.username}}/myPost" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Back to posts">Posts</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                </div>
+
+                <div class="col-md-12">
+                    <h2 class="fw-bolder"><i class="far fa-plus-square"></i> Create Post</h2>
+                </div>
+                <div class="col-md-6">
+                    <div class="row gy-3">
+                        <div class="col-md-12">
+                            <label for="title" class="form-label fw-bold">Title: </label>
+                            <input type="text" id="title" class="form-control" name="title" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="description" class="form-label fw-bold">Description: </label>
+                            <textarea class="form-control" rows="3" id="description" name="description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row gy-3">
+                        <div class="col-md-12">
+                            <label for="input-item-picture" class="form-label fw-bold">Item Picture</label>
+                            <input type="file" id="file-upload" class="filepond">
+                        </div>
+                    </div>
+                </div>
+                {{!-- <div class="col-md-6">
+                    <input type="checkbox" id="poll" class="form-check-input" name="poll" data-bs-toggle="collapse"
+                        data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+                    <label for="poll" class="form-check-label fw-bold">Make this a Poll</label>
+                </div> --}}
+                {{!-- <div class="collapse" id="collapseForm">
+                    <div class="col-md-12">
+                        <label for="polldesc" class="form-label fw-bold">Poll Description: </label>
+                        <textarea class="form-control" rows="3" id="polldesc" name="polldesc"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pollopt1" class="form-label fw-bold">Poll Options: </label>
+                        <div class="col-md-12">
+                            <input type="radio" id="pollopt1" class="form-check-input" name="pollopt1" checked>
+                            <label class="form-check-label" for="option1">
+                                <input type="text" id="option1" class="form-control" name="option1"
+                                    placeholder="Type Option 1 here">
+                            </label>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <input type="radio" id="pollopt2" class="form-check-input" name="pollopt2" checked>
+                            <label class="form-check-label" for="option2">
+                                <input type="text" id="option2" class="form-control" name="option2"
+                                    placeholder="Type Option 2 here">
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                </div> --}}
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success mt-2 fw-bold">Create</button>
+                </div>
+            </div>
+        </form>
+</div>
+
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+
+<script src="/js/addPost.js"></script>

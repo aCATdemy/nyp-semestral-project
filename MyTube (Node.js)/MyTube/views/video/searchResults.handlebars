@@ -1,0 +1,36 @@
+<h2 class="fw-bold text-center mb-3">Search Results</h2>
+{{#if videos}}
+<div class="row">
+	{{#each videos}}
+	<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+		<div class="card mb-3">
+			{{!-- Video (play on hover) and Video Thumbnail --}}
+			<a href="/video/showVideo/{{id}}/{{userId}}" class="card-link stretched-link">
+				<div style="z-index: 5; position: relative;">
+					<video-js class='vjs-theme-city' id="{{videoURL}}" data-setup='{"controls": false, "autoplay": false, "preload": "auto", "fluid": true, "poster": "{{posterURL}}", "muted": true}' onmouseover="videojs('{{videoURL}}').play()" onmouseleave="videojs('{{videoURL}}').pause(), videojs('{{videoURL}}').currentTime(0), videojs('{{videoURL}}').hasStarted(false), videojs('{{videoURL}}').trigger('loadstart')">
+						<source src="{{videoURL}}">
+					</video-js>
+				</div>
+			</a>
+			<div class="card-body">
+				{{!-- Video Title --}}
+				<div id="video-title-overflow">
+					<p class="fw-bold mb-0">{{title}}</p>
+				</div>
+
+				{{!-- Stretched Link --}}
+				<a href="/video/showVideo/{{id}}/{{userId}}" class="card-link stretched-link"></a>
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</div>
+
+{{else}}
+<p class="text-center">No videos found.</h3>
+
+{{/if}}
+
+
+<script src="https://vjs.zencdn.net/7.20.1/video.min.js"></script>
+<script src="../../public/js/videoplayer.js"></script>

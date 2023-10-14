@@ -1,0 +1,395 @@
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
+		{{!-- Display Video --}}
+		<div class="mb-2">
+			<video-js class='vjs-theme-city' id="vid1" data-setup='{"controls": true, "autoplay": false, "preload": "auto","fluid": true, "poster": "{{video.posterURL}}" }'>
+				<source src="{{video.videoURL}}">
+			</video-js>
+		</div>
+
+		{{!-- Video Title --}}
+		<div id="video-title-overflow">
+			<p class="fw-bold" style="font-size: 20px;">{{video.title}}</p>
+		</div>
+
+		<hr class="mb-2">
+
+		{{!-- Date of Video Publish --}}
+		<p class="mb-0">
+			<span class="fw-bold">Published: </span>{{date video.createdAt "MMM DD, YYYY"}}
+		</p>
+
+		{{!-- Like / Unlike Button --}}
+		{{#if user}}
+		<form name="like" method="post" action="/video/{{likestatus}}/{{video.id}}" class="d-flex w-100 justify-content-end" onclick="window.location.reload()">
+			<button type="submit" class="btn btn-outline-primary shadow-none" id="like-dislike-btn" >
+				<i class="fa-solid fa-thumbs-up me-1"></i>{{likestatus}}
+			</button>
+			<button class="btn btn-outline-primary shadow-none" id="like-dislike-counter" disabled>{{likecount}}</button>
+		</form>
+		{{else}}
+		<form name="like" method="post" action="/video/{{likestatus}}/{{video.id}}" class="d-flex w-100 justify-content-end">
+			<button type="submit" class="btn btn-outline-primary shadow-none" id="like-dislike-btn" disabled>
+				<i class="fa-solid fa-thumbs-up me-1"></i>{{likestatus}}
+			</button>
+			<button class="btn btn-outline-primary shadow-none" id="like-dislike-counter" disabled>{{likecount}}</button>
+		</form>
+		{{/if}}
+
+		{{!-- Shown On Mobile View Only --}}
+		<div class="show-on-responsive">
+			{{!-- Channel Information Card --}}
+			<div class="card mt-2 mb-3">
+				<div class="card-header">
+					<p class="fw-bold mb-0">
+						<i class="fa-solid fa-circle-info me-1"></i>Channel Information
+					</p>
+				</div>
+				<div class="card-body">
+					{{!-- Display Uploader's Username --}}
+					{{#video}}
+					<a href="/video/showChannel/{{user.id}}" class="fw-bold ms-2 mb-1" id="video-a">{{user.username}}</a>
+					{{/video}}
+
+					{{!-- Subscribe Function --}}
+					{{#if notuser}}
+					<form name="login" method="post" action="/account/login">
+						<button type="submit" class="btn btn-danger" disabled>SUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{else}}
+
+					{{!-- Subscribe/Unsubscribe Button --}}
+					{{#if subscriptionstatus}}
+					<form name="subscribe" method="post" action="/video/unsubscribe/{{#video}}{{user.id}}{{/video}}">
+						<button type="submit" class="btn btn-danger" onclick="window.location.reload()">UNSUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{else}}
+					<form name="unsubscribe" method="post" action="/video/subscribe/{{#video}}{{user.id}}{{/video}}">
+						<button type="submit" class="btn btn-danger" onclick="window.location.reload()">SUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{/if}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+
+		{{!-- Video Description --}}
+		<div class="accordion mt-1 accordion-flush">
+			<h2 class="accordion-header" id="descriptionOpen">
+				<button class="accordion-button fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionCollapse" aria-expanded="true" aria-controls="descriptionCollapse">
+					<i class="fa-solid fa-scroll me-1"></i>Video Description
+				</button>
+			</h2>
+			<div id="descriptionCollapse" class="accordion-collapse collapse show" aria-labelledby="descriptionOpen">
+				<div class="accordion-body">
+					<div class="multiline">{{video.description}}</div>
+				</div>
+			</div>
+		</div>
+
+		{{!-- Shown On Mobile View Only --}}
+		<div class="show-on-responsive">
+			{{!-- Administrative Actions Card --}}
+			{{#if isowner}}
+			<div class="accordion accordion-flush">
+				<h2 class="accordion-header" id="adminActionsOpen">
+					<button class="accordion-button collapsed fw-bold text-danger shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminActionsCollapse" aria-expanded="true" aria-controls="adminActionsCollapse">
+						<i class="fa-solid fa-gear me-1"></i>Administrative Actions
+					</button>
+				</h2>
+				<div id="adminActionsCollapse" class="accordion-collapse collapse" aria-labelledby="adminActionsOpen">
+					<div class="accordion-body">
+						{{!-- Delete Video Button --}}
+						<div class="d-grid mb-1">
+							<a class="btn btn-danger shadow-none" data-bs-toggle="modal" data-bs-target="#deleteVideoConfirmationModal">
+								<i class="fa-solid fa-eraser me-1"></i>Delete Video
+							</a>
+						</div>
+
+						{{!-- Edit Video Button --}}
+						<form name="edit" method="get" action="/video/editVideo/{{video.id}}" class="mb-1">
+							<div class="d-grid">
+								<button type="submit" class="btn btn-warning btn-sm shadow-none">
+									<i class="fa-solid fa-wand-magic-sparkles me-1"></i>Edit Video
+								</button>
+							</div>
+						</form>
+
+						{{!-- Hide / Show Video Button --}}
+						<form name="showhide" method="get" action="/video/hideVideo/{{video.id}}">
+							{{#if videostatus}}
+							<div class="d-grid">
+								<button type="submit" class="btn btn-success btn-sm shadow-none">
+									<i class="fa-solid fa-eye me-1"></i>Public
+								</button>
+							</div>
+							{{else}}
+							<div class="d-grid">
+								<button type="submit" class="btn btn-secondary btn-sm shadow-none" onclick="window.location.reload()">
+									<i class="fa-solid fa-eye-slash me-1"></i>Hidden
+								</button>
+							</div>
+							{{/if}}
+						</form>
+					</div>
+				</div>
+			</div>
+			{{/if}}
+		</div>
+
+		{{!-- Comment System --}}
+		<div class="accordion accordion-flush">
+			<h2 class="accordion-header" id="commentOpen">
+				<button class="accordion-button fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#commentCollapse" aria-expanded="true" aria-controls="commentCollapse">
+					<i class="fa-solid fa-comment-dots me-1"></i>Comments
+				</button>
+			</h2>
+			<div id="commentCollapse" class="accordion-collapse collapse show" aria-labelledby="commentOpen">
+				<div class="accordion-body">
+					{{!-- Post Comment --}}
+					{{#if user}}
+					<div class="mb-3">
+						<form action="" method="post">
+							<div class="form-group">
+								<p>
+									<span class="fw-bold">You're currently commenting as: </span>{{this.user.username}}
+								</p>
+
+								{{!-- Comment Input --}}
+								<div class="form-floating mb-2">
+									<textarea class="form-control" placeholder="Comment" name="comment" id="comment" maxlength="2000" style="height: 125px" required></textarea>
+									<label for="comment">Comment &lpar;max characters: 2000&rpar;</label>
+								</div>
+
+								<div class="d-flex justify-content-end align-items-center">
+									<button type="reset" class="btn btn-link btn-sm shadow-none">Clear</button>
+
+									{{!-- Comment Button --}}
+									<button type="submit" class="btn btn-success btn-sm shadow-none">Comment</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					{{/if}}
+
+					{{#if user}}
+					{{#if usercomments}}
+					{{#each usercomments}}
+					<hr class="mb-2">
+					<div class="user-info">
+						<div class="d-flex flex-column justify-content-start ml-2">
+							<span class="d-block fw-bold name">
+								{{this.user.username}}
+								<a href="/comment/editComment/{{id}}" id="comment-a">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a href="/comment/deleteComment/{{id}}" id="comment-a">
+									<i class="fa fa-trash"></i>
+								</a>
+							</span>
+							<small class="date text-black-50">on {{date this.updatedAt "MMM DD, YYYY (HH:mm:ss A)"}}</small>
+							<div class="multiline mt-2" style="word-wrap: break-word;">{{comment}}</div>
+						</div>
+					</div>
+					{{/each}}
+					{{/if}}
+
+					{{#if nonusercomments}}
+					{{#each nonusercomments}}
+					<hr class="mb-2">
+					<div class="user-info">
+						<div class="d-flex flex-column justify-content-start ml-2">
+							<span class="d-block fw-bold name">{{this.user.username}}</span>
+							<small class="date text-black-50">on {{date this.updatedAt "MMM DD, YYYY (HH:mm:ss A)"}}</small>
+							<div class="multiline mt-2" style="word-wrap: break-word;">{{comment}}</div>
+						</div>
+					</div>
+					{{/each}}
+					{{/if}}
+
+					{{#unless allcomments}}
+					<p>There are currently no comments in this video.</p>
+					{{/unless}}
+
+					{{else}}
+
+					{{#if allcomments}}
+					{{#each allcomments}}
+					<hr class="mb-2">
+					<div class="user-info">
+						<div class="d-flex flex-column justify-content-start ml-2">
+							<span class="d-block fw-bold name">{{this.user.username}}</span>
+							<span class="date text-black-50">on {{date this.updatedAt "MMM DD, YYYY (HH:mm:ss A)"}}</span>
+							<div class="multiline mt-2" style="word-wrap: break-word;">{{comment}}</div>
+						</div>
+					</div>
+					{{/each}}
+					{{else}}
+					<p>There are currently no comments in this video.</p>
+					{{/if}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+		{{!-- Shown On Desktop View Only --}}
+		<div class="hide-on-responsive">
+			{{!-- Channel Information Card --}}
+			<div class="card mb-3">
+				<div class="card-header">
+					<p class="fw-bold mb-0">
+						<i class="fa-solid fa-circle-info me-1"></i>Channel Information
+					</p>
+				</div>
+				<div class="card-body">
+					{{!-- Display Uploader's Username --}}
+					{{#video}}
+					<a href="/video/showChannel/{{user.id}}" class="fw-bold ms-2 mb-1" id="video-a">{{user.username}}</a>
+					{{/video}}
+
+					{{!-- Subscribe Function --}}
+					{{#if notuser}}
+					<form name="login" method="post" action="/account/login">
+						<button type="submit" class="btn btn-danger" disabled>SUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{else}}
+
+					{{!-- Subscribe/Unsubscribe Button --}}
+					{{#if subscriptionstatus}}
+					<form name="subscribe" method="post" action="/video/unsubscribe/{{#video}}{{user.id}}{{/video}}">
+						<button type="submit" class="btn btn-danger" onclick="window.location.reload()">UNSUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{else}}
+					<form name="unsubscribe" method="post" action="/video/subscribe/{{#video}}{{user.id}}{{/video}}">
+						<button type="submit" class="btn btn-danger" onclick="window.location.reload()">SUBSCRIBE &lpar;{{subcount}}&rpar;</button>
+					</form>
+					{{/if}}
+					{{/if}}
+				</div>
+			</div>
+
+			{{!-- Administrative Actions Card --}}
+			{{#if isowner}}
+			<div class="accordion accordion-flush">
+				<h2 class="accordion-header" id="adminActionsOpen">
+					<button class="accordion-button collapsed fw-bold text-danger shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminActionsCollapse" aria-expanded="true" aria-controls="adminActionsCollapse">
+						<i class="fa-solid fa-gear me-1"></i>Administrative Actions
+					</button>
+				</h2>
+				<div id="adminActionsCollapse" class="accordion-collapse collapse" aria-labelledby="adminActionsOpen">
+					<div class="accordion-body">
+						{{!-- Delete Video Button --}}
+						<div class="d-grid mb-1">
+							<a class="btn btn-danger shadow-none" data-bs-toggle="modal" data-bs-target="#deleteVideoConfirmationModal">
+								<i class="fa-solid fa-eraser me-1"></i>Delete Video
+							</a>
+						</div>
+
+						{{!-- Edit Video Button --}}
+						<form name="edit" method="get" action="/video/editVideo/{{video.id}}" class="mb-1">
+							<div class="d-grid">
+								<button type="submit" class="btn btn-warning btn-sm shadow-none">
+									<i class="fa-solid fa-wand-magic-sparkles me-1"></i>Edit Video
+								</button>
+							</div>
+						</form>
+
+						{{!-- Hide / Show Video Button --}}
+						<form name="showhide" method="get" action="/video/hideVideo/{{video.id}}">
+							{{#if videostatus}}
+							<div class="d-grid">
+								<button type="submit" class="btn btn-success btn-sm shadow-none" onclick="window.location.reload()">
+									<i class="fa-solid fa-eye me-1"></i>Public
+								</button>
+							</div>
+							{{else}}
+							<div class="d-grid">
+								<button type="submit" class="btn btn-secondary btn-sm shadow-none" onclick="window.location.reload()">
+									<i class="fa-solid fa-eye-slash me-1"></i>Hidden
+								</button>
+							</div>
+							{{/if}}
+						</form>
+						{{#if undelete}}
+						<form name="undelete" method="post" action="/video/undelete/{{video.id}}">
+							<div class="d-grid">
+								<button type="submit" class="btn btn-success btn-sm shadow-none" onclick="window.location.reload()">
+									<i class="fa-solid fa-eye me-1"></i>Undelete
+								</button>
+							</div>
+						</form>
+						{{/if}}
+
+					</div>
+				</div>
+			</div>
+			{{/if}}
+		</div>
+
+		<hr class="m-0">
+
+		{{!-- Display List of Videos --}}
+		<div class="accordion mt-1 mb-3 accordion-flush">
+			<h2 class="accordion-header" id="listVideoOpen">
+				<button class="accordion-button fw-bold shadow-none" type="button" data-bs-toggle="collapse"
+					data-bs-target="#listVideoCollapse" aria-expanded="true" aria-controls="listVideoCollapse">
+					<i class="fa-solid fa-thumbs-up me-1"></i>Recommended to watch next
+				</button>
+			</h2>
+			<div id="listVideoCollapse" class="accordion-collapse collapse show" aria-labelledby="listVideonOpen">
+				<div class="accordion-body">
+					{{#each videosuggestion}}
+					<div class="card mb-3">
+						{{!-- Video (play on hover) and Video Thumbnail --}}
+						<a href="/video/showVideo/{{id}}/{{userId}}" class="card-link stretched-link">
+							<div style="z-index: 5; position: relative;">
+								<video-js class='vjs-theme-city' id="{{videoURL}}" data-setup='{"controls": false, "autoplay": false, "preload": "auto", "fluid": true, "poster": "{{posterURL}}", "muted": true}' onmouseover="videojs('{{videoURL}}').play()" onmouseleave="videojs('{{videoURL}}').pause(), videojs('{{videoURL}}').currentTime(0), videojs('{{videoURL}}').hasStarted(false), videojs('{{videoURL}}').trigger('loadstart')">
+									<source src="{{videoURL}}">
+								</video-js>
+							</div>
+						</a>
+						<div class="card-body">
+							{{!-- Video Title --}}
+							<div id="video-title-overflow">
+								<p class="fw-bold">{{title}}</p>
+							</div>
+
+							{{!-- Stretched Link --}}
+							<a href="/video/showVideo/{{id}}/{{userId}}" class="card-link stretched-link"></a>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{!-- Modal (to confirm video deletion) --}}
+    <div class="modal fade" id="deleteVideoConfirmationModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="deleteVideoConfirmationModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="deleteVideoConfirmationModalLabel">
+                        <i class="fa-solid fa-trash me-1"></i>Delete Video?
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this video?</p>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-link shadow-none" data-bs-dismiss="modal">No</button>
+					<form name="delete" method="get" action="/video/deleteVideo/{{video.id}}">
+						<button type="submit" class="btn btn-danger shadow-none">Yes</button>
+					</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- JavaScript --}}
+<script src="https://vjs.zencdn.net/7.20.1/video.min.js"></script>
+<script src="../../public/js/videoplayer.js"></script>

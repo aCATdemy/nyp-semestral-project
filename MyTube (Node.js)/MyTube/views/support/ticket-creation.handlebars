@@ -1,0 +1,33 @@
+<h2 class="fw-bold text-center mb-3">Ticket Creation</h2>
+
+<div class="ticket-form mx-auto">
+    <form action="" method="post">
+        {{!-- Subject --}}
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="ticketSubject" id="ticketSubject" placeholder="Subject (max characters: 256)" required>
+            <label for="ticketSubject">Subject &lpar;max characters: 256&rpar;</label>
+        </div>
+
+        {{!-- Category --}}
+        <div class="form-floating mb-3">
+            <select class="form-select" name="ticketCategory" id="ticketCategory" aria-label="Category" required>
+                <option value="" selected>~ please select a category ~</option>
+                <option value="General Enquiries">General Enquiries</option>
+                <option value="Account Related">Account Related</option>
+                <option value="Legal/Privacy Matters">Legal/Privacy Matters</option>
+                <option value="Bug Report">Bug Report</option>
+                <option value="Others">Others</option>
+            </select>
+            <label for="ticketCategory">Category</label>
+        </div>
+
+        {{!-- Message --}}
+        <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="Your Message (max characters: 1000)" name="ticketMessage" id="ticketMessage" style="height: 200px" required></textarea>
+            <label for="ticketMessage">Your Message &lpar;max characters: 1000&rpar;</label>
+        </div>
+
+        {{!-- Submit Button --}}
+        <button type="submit" class="btn btn-success shadow-none">Submit</button>
+    </form>
+</div>

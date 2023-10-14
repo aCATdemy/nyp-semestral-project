@@ -1,0 +1,49 @@
+<h2 class="fw-bold text-center mb-3">Ticket Overview</h2>
+
+{{#if tickets}}
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th scope="col" style="width: 10%;">ID</th>
+                <th scope="col" style="width: 15%;">Created By</th>
+                <th scope="col" style="width: 35%;">Ticket Subject</th>
+                <th scope="col" style="width: 15%;">Created On</th>
+                <th scope="col" style="width: 15%;">Last Updated</th>
+                <th scope="col" style="width: 10%;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each tickets}}
+            <tr>
+                <th>
+                    <a href="/support/admin/view-ticket/{{id}}">&num;{{id}}</a>
+                </th>
+                <td>{{user.username}}</td>
+                <td>{{ticketSubject}}</td>
+                <td>{{date createdAt "YYYY/MM/DD, HH:mm:ss"}}</td>
+                <td>{{date updatedAt "YYYY/MM/DD, HH:mm:ss"}}</td>
+                <td>
+                    {{#if (eq ticketStatusId 4)}}
+                    <span class="badge rounded-pill bg-secondary">SOLVED</span>
+                    {{else if (eq ticketStatusId 3)}}
+                    <span class="badge rounded-pill bg-info text-dark">AWAITING YOUR RESPONSE</span>
+                    {{else if (eq ticketStatusId 2)}}
+                    <span class="badge rounded-pill bg-warning text-dark">PENDING USER RESPONSE</span>
+                    {{else}}
+                    <span class="badge rounded-pill bg-success">OPEN</span>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<small>All dates and times shown are in GMT+8.</small>
+<p class="text-center fst-italic pt-3">~ looks like you have reached the end ~</p>
+
+{{else}}
+<p class="text-center">There isn't any support ticket created as of now.</p>
+<p class="text-center">Check back later to see if anyone requires assistance.</p>
+
+{{/if}}

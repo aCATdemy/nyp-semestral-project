@@ -1,0 +1,42 @@
+<div class="card mx-auto" style="max-width: 600px;">
+	<div class="card-body">
+		<div class="align-items-center">
+			<div class="my-3 text-center">
+				<img src="/images/logo.png" alt="logo.png" class="mb-3" id="account-logo">
+				<h6 class="fw-bold">MyTube ID</h6>
+			</div>
+			<div class="my-3">
+				<h3 class="fw-bold text-center my-4">Login</h3>
+				<form action="" method="post">
+					{{!-- Email Address --}}
+					<div class="form-floating mb-3 mx-auto">
+						<input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required>
+						<label for="email">Email Address</label>
+					</div>
+
+					{{!-- Password --}}
+					<div class="form-floating mb-4 mx-auto">
+						<input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+						<label for="password">Password</label>
+						{{!--
+						<small>
+							<a href="/account/password-recovery" target="_blank" class="account-a">
+								Forgot password?<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+							</a>
+						</small>
+						--}}
+					</div>
+
+					<div class="d-flex justify-content-between align-items-center mx-auto">
+						<a href="/account/register" class="account-a fw-bold">
+							<i class="fa-solid fa-plus me-1"></i>Create Account
+						</a>
+
+						{{!-- Login Button --}}
+						<button type="submit" class="btn btn-success shadow-none">Login</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

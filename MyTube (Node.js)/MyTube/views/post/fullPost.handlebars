@@ -1,0 +1,310 @@
+<style>
+    .carousel-item img {
+        object-fit: contain;
+        object-position: center;
+        overflow: hidden;
+        height: 42vh;
+        width: 100%;
+    }
+
+    .comment-section {
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .row-height {
+        height: 60vh;
+    }
+    .comment-section::-webkit-scrollbar{
+        display: none;
+    }
+    
+</style>
+
+<div class="container overflow-hidden">
+    <div class="row gx-5">
+        <div class="col-md-8">
+            <div class="p-3 border bg-light">
+                {{#if post.postfiles}}
+                <div id="carousel-post-{{post.id}}" class="carousel carousel-light slide" data-bs-ride="true"
+                    data-bs-interval="0">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carousel-post-{{post.id}}" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 0"></button>
+                        {{#eachIndex (after post.postfiles 1)}}
+                        <button type="button" data-bs-target="#carousel-post-{{../id}}"
+                            data-bs-slide-to="{{add index 1}}" aria-label="Slide {{add index 1}}"></button>
+                        {{/eachIndex}}
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{get "imagepath" (itemAt post.postfiles 0)}}" class="img-fluid" alt="...">
+                        </div>
+
+                        {{#forEach (after post.postfiles 1)}}
+                        <div class="carousel-item">
+                            <img src="{{this.imagepath}}" class="img-fluid" alt="...">
+                        </div>
+                        {{/forEach}}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-post-{{post.id}}"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-post-{{post.id}}"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                {{/if}}
+            </div>
+            <div class="d-flex mt-3">
+                <div>
+                    <h2>{{post.title}}</h2>
+                    <p>{{post.description}}</p>
+                    <span>By: {{post.user.username}}</span>
+                </div>
+                <div class="ms-auto">
+                    <div class="dropdown mt-3 me-3">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
+                            <span><i class="fas fa-ellipsis-v"></i></span>
+
+                        </button>
+                        {{!-- <a class="btn" id="dropdownMenu">
+                        </a> --}}
+                        {{#if (eq post.user.username user.username)}}
+                            <ul class="dropdown-menu p-2 shadow-sm" aria-labelledby="dropdownMenu">
+                                <li>
+                                    <a class="dropdown-item text-warning" href="/post/update/{{post.id}}"><i
+                                            class="far fa-edit"></i>
+                                        Update
+                                    </a>
+                                </li>   
+                                <li>
+                                    <form method="POST" action="/post/delete/{{post.id}}">
+                                        <button class="dropdown-item text-danger" type="submit"><i
+                                                class="far fa-trash-alt "></i>
+                                            Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        {{else}}
+                            <ul class="dropdown-menu p-2 shadow-sm" aria-labelledby="dropdownMenu">
+                                <li>
+                                    <a class="dropdown-item" href="#reportModal-{{post.id}}" data-bs-toggle="modal"><i
+                                            class="far fa-flag"></i> Report</a>
+                                </li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade" id="reportModal-{{post.id}}" tabindex="-1"
+                                aria-labelledby="reportModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportModalLabel">Report Post</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form id="report-post">
+                                            <input type="hidden" value="{{post.id}}" id="postId" />
+                                            <input type="hidden" value="{{user.username}}" id="username" />
+
+                                            <div class="modal-body">
+                                                <p>Report for:</p>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportradio"
+                                                        id="radio1" value="Sexual Content">
+                                                    <label class="form-check-label" for="flexRadio1">
+                                                        Sexual Content
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportradio"
+                                                        id="radio2" value="Violent Language">
+                                                    <label class="form-check-label" for="flexRadio2">
+                                                        Violent Language
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportradio"
+                                                        id="radio3" value="Spam or Misleading">
+                                                    <label class="form-check-label" for="flexRadio3">
+                                                        Spam or Misleading
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    id="report-submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 comment-section">
+            <div class="p-3 border bg-light">
+                <form method="post" action="/post/{{post.id}}/comment">
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px" name="comment"></textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                    </div>
+                    <br />
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-primary" type="submit">Send</button>
+                    </div>
+                </form>
+
+                <hr>
+                <div class="row row-height">
+                    <div class="col-md-12 comment-section">
+                        {{#each post.postcomments}}
+
+                        <div class="d-flex mt-4">
+                            <div class="flex-shrink-0">
+                                <img src="/images/no-image.jpg" width="50px" class="rounded float-start rounded-circle">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="row">
+                                    <div class="col-12 fw-bold">
+
+                                        <span class="me-2">{{user.username}} </span>
+                                        {{#if (eq user.username ../user.username)}}
+                                        <a data-bs-toggle="modal" data-bs-target="#edit-comment-{{id}}">
+                                            <i class="fas fa-edit text-warning"></i>
+                                        </a>
+                                        <div class="modal fade" id="edit-comment-{{id}}" tabindex="-1"
+                                            aria-labelledby="edit-comment-modal-{{id}}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="/post/comment/edit/{{id}}" method="post">
+
+                                                        <div class="modal-body">
+                                                            <div class="form-floating">
+                                                                <textarea class="form-control"
+                                                                    placeholder="Leave a comment here"
+                                                                    id="floatingTextarea3" style="height: 100px"
+                                                                    name="editcomment">{{comment}}</textarea>
+                                                                <label for="floatingTextarea2">Edit Comment</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-warning">Save
+                                                                Changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+
+                                        {{#if (eq user.username ../user.username)}}
+                                        <a data-bs-toggle="modal" data-bs-target="#delete-comment-{{id}}">
+                                            <i class="fas fa-trash text-danger"></i>
+                                        </a>
+                                        {{else if (eq @root.post.user.username @root.user.username)}}
+                                        <a data-bs-toggle="modal" data-bs-target="#delete-comment-{{id}}">
+                                            <i class="fas fa-trash text-danger"></i>
+                                        </a>
+                                        {{/if}}
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="delete-comment-{{id}}" tabindex="-1"
+                                            aria-labelledby="delete-comment-modal-{{id}}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Comment
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to delete this comment?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <form action="/post/comment/delete/{{id}}" method="post">
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12">
+                                        {{comment}}
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        {{date updatedAt "ddd DD/MM/YYYY HH:mm" }}
+                                        {{#if edited}}
+                                        (edited)
+                                        {{/if}}
+                                    </div>
+
+                                    <div class="col-12 mt-3 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger btn-sm me-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Like"><i
+                                                class="fas fa-heart"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" data-bs-title="Reply"><i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#report-post").submit(function (event) {
+        let postId = document.getElementById("postId").value;
+        let username = document.getElementById("username").value;
+
+        let content
+
+        const radioButtons = document.querySelectorAll('input[name="reportradio"');
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                content = radioButton.value;
+            }
+        }
+        $.ajax({
+            url: 'http://localhost:5000/post/' + username + '/myPost/report/' + postId,
+            type: 'POST',
+            data: { report: content },
+            'success': (result) => {
+                window.location.href = window.location.href
+            }
+        })
+    })
+
+</script>

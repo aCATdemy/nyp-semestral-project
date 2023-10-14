@@ -1,0 +1,454 @@
+/*
+    @Authors:
+    - Han Zhan Guang, Holden (212762Z)
+    - Kuah Yu Leong (201382M)
+    - Tan Jia Hao, Derrick (214142Z)
+    - Tan Wei Heng (201450S)
+    - Wong Zi Qin (212887D)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* || Scrollbar CSS START */
+::-webkit-scrollbar {
+    width: 12.5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #616161;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+/* || Scrollbar CSS END */
+
+
+/* || Button CSS START */
+a.btn {
+    padding: 6px 15px;
+    border-radius: 1.625rem;
+}
+
+button.btn {
+    padding: 6px 15px;
+    border-radius: 1.625rem;
+}
+
+.btn.btn-success {
+    color: #fff;
+    background-color: #00b74a;
+    border-color: #00b74a;
+}
+
+.btn.btn-success:hover {
+    background-color: #00913b;
+    border-color: #00913b;
+}
+
+.btn.btn-warning {
+    color: #fff;
+    background-color: #ffa900;
+    border-color: #ffa900;
+}
+
+.btn.btn-warning:hover {
+    color: #fff;
+    background-color: #d99000;
+    border-color: #d99000;
+}
+
+.btn.btn-danger {
+    color: #fff;
+    background-color: #f93154;
+    border-color: #f93154;
+}
+
+.btn.btn-danger:hover {
+    color: #fff;
+    background-color: #f80c35;
+    border-color: #f80c35;
+}
+
+.btn.btn-link {
+    text-decoration: none;
+}
+
+.btn.btn-link:hover {
+    font-weight: bold;
+}
+
+/* || Button CSS END */
+
+
+/* Card CSS START */
+.card {
+    border: 0 !important;
+    box-shadow: 0 2px 15px -3px rgb(0 0 0 / 7%), 0 10px 20px -2px rgb(0 0 0 / 4%);
+}
+
+.card:hover {
+    box-shadow: 0 2px 15px -3px rgb(0 0 0 / 12%), 0 10px 20px -2px rgb(0 0 0 / 9%);
+    transition: 0.25s;
+}
+
+/* Card CSS END */
+
+
+/* || Badge Rounded Pill CSS START */
+.badge.rounded-pill.bg-warning {
+    color: #000;
+    background-color: #ffa900 !important;
+}
+
+.badge.rounded-pill.bg-success {
+    color: #fff;
+    background-color: #00b74a !important;
+}
+
+/* || Badge Rounded Pill CSS START */
+
+
+/* || Header & Navbar CSS START */
+header {
+    background-color: #f3f3f3;
+}
+
+#header-logo {
+    width: 35px;
+    height: 40px;
+}
+
+header form button.btn.btn-light {
+    border: 1px solid #ced4da;
+}
+
+#login-btn {
+    margin-top: 0;
+    padding: 6px 25px;
+    border-radius: 1.625rem;
+}
+
+header .dropdown-menu {
+    background-color: #fbfbfb;
+}
+
+#accountMenu {
+    max-width: 175px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+nav {
+    background-color: #98fb98;
+}
+
+#nav-nav-item:hover {
+    background-color: #88e088;
+    transition: 0.25s;
+}
+
+nav .dropdown-menu {
+    width: 125%;
+    transform: translate3d(0px, -2.3px, 0px) !important;
+    background-color: #98fb98;
+    border-radius: 0 0 0.25rem 0.25rem;
+    border: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+nav .dropdown-menu li a {
+    padding: 10px 22.5px;
+}
+
+nav .dropdown-menu li a:hover {
+    background-color: #88e088;
+}
+
+nav .dropdown-menu::-webkit-scrollbar-track {
+    background-color: #98fb98;
+    border-bottom-right-radius: 0.25rem;
+}
+
+#search-box {
+    min-width: 500px;
+    padding-left: 15px;
+    border-radius: 1.625rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#video-search-icon {
+    min-width: 50px;
+    border-radius: 1.625rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.show-on-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 991.5px) {
+    nav {
+        display: none !important;
+    }
+
+    header form.search-bar {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+    }
+
+    #login-btn {
+        margin-top: 5px;
+    }
+
+    #search-box {
+        min-width: 0px;
+    }
+
+    .show-on-mobile {
+        display: block;
+    }
+}
+
+/* || Header & Navbar CSS START */
+
+
+/* || Account CSS START */
+#account-logo {
+    width: 84px;
+    height: 96px;
+}
+
+.account-a {
+    text-decoration: none;
+}
+
+.account-a:hover {
+    font-weight: bold;
+}
+
+.table-success {
+    --bs-table-bg: #98fb98 !important;
+}
+
+/* || Account CSS END */
+
+
+/* || Community Post CSS START */
+#navbar-logo {
+    width: 35px;
+    height: 40px;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236F5' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236F9' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+/* || Community Post CSS END */
+
+
+/* || Comment CSS START */
+#comment-a {
+    text-decoration: none;
+}
+
+#comment-a:hover {
+    font-weight: bold;
+}
+
+#comment-dd {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* || Comment CSS END */
+
+
+/* || Video CSS START */
+#video-title-overflow {
+    font-size: 18px;
+    height: 38px;
+    line-height: 19px;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    -ms-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+#video-channel-info-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#video-a {
+    text-decoration: none;
+}
+
+#video-a:hover {
+    font-weight: bold;
+}
+
+#like-dislike-btn {
+    padding-left: 15px;
+    border-radius: 1.625rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#like-dislike-counter {
+    border-radius: 1.625rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.card-link {
+    text-decoration: none;
+}
+
+.show-on-responsive {
+    display: none;
+}
+
+@media screen and (max-width: 1199.5px) {
+    .hide-on-responsive {
+        display: none;
+    }
+
+    .show-on-responsive {
+        display: block;
+    }
+}
+
+/* || Video CSS END */
+
+
+/* || Support CSS START */
+.support-a {
+    text-decoration: none;
+}
+
+.support-a:hover {
+    font-weight: bold;
+}
+
+.ticket-form {
+    max-width: 750px;
+}
+
+.ticket-subject {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.multiline {
+    white-space: pre-line;
+}
+
+.history-top {
+    text-decoration: none;
+    color: #000;
+}
+
+/* || Support CSS END */
+
+
+/* || Footer CSS START */
+footer {
+    background-color: #484848;
+    color: #fff;
+}
+
+footer a {
+    text-decoration: none;
+    color: #fff;
+}
+
+footer a:hover {
+    color: #93e9be;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    border-right: 2px solid #ababab;
+    display: inline-block;
+}
+
+footer ul li:last-child {
+    border-right: none;
+}
+
+/* || Footer CSS END */
+
+
+/* || Legal CSS START */
+.legal-a {
+    text-decoration: none;
+}
+
+.legal-a:hover {
+    font-weight: bold;
+}
+
+/* || Legal CSS END */
+
+
+button.like {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    line-height: 50px;
+    border-radius: 50%;
+    color: rgba(0, 150, 136, 1);
+    background-color: rgba(38, 166, 154, 0.3);
+    border-color: rgba(0, 150, 136, 1);
+    border-width: 1px;
+    font-size: 15px;
+}
+
+button.dislike {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    line-height: 50px;
+    border-radius: 50%;
+    color: rgba(255, 82, 82, 1);
+    background-color: rgba(255, 138, 128, 0.3);
+    border-color: rgba(255, 82, 82, 1);
+    border-width: 1px;
+    font-size: 15px;
+}

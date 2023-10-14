@@ -1,0 +1,52 @@
+<h2 class="fw-bold text-center mb-3">User Management</h2>
+
+{{#if users}}
+<div class="mb-3">
+    <a href="/account/addUser" class="btn btn-success btn-sm shadow-none my-0">
+        <i class="fa-solid fa-user-plus me-1"></i>Add User
+    </a>
+</div>
+<p class="fw-bold mb-2">The table below displays the users who are currently registered:</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th scope="col" style="max-width: 5%;">User ID</th>
+                <th scope="col" style="min-width: 25%;">Username</th>
+                <th scope="col" style="min-width: 35%;">Email</th>
+                <th scope="col" style="min-width: 25%;">Phone Number</th>
+                <th scope="col" style="min-width: 138px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{username}}</td>
+                <td>{{email}}</td>
+                <td>{{telephone}}</td>
+                <td>
+                    <div class="d-grid gap-1 d-lg-block">
+                        <a href="/account/editUser/{{id}}" class="btn btn-warning btn-sm shadow-none">
+                            <i class="fa-solid fa-pencil me-1"></i>Edit User
+                        </a>
+                        <a href="/account/deleteUser/{{id}}" class="btn btn-danger btn-sm shadow-none">
+                            <i class="fa-solid fa-trash-can me-1"></i>Delete User
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{else}}
+<div class="text-center">
+    <p>There isn't any account created as of now.</p>
+    <a href="/account/addUser" class="btn btn-success shadow-none my-0">
+        <i class="fa-solid fa-user-plus me-1"></i>Add User
+    </a>
+</div>
+{{/if}}

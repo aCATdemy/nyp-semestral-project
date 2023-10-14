@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-5 my-3 text-center">
+                <img src="/images/logo.png" alt="logo.png" class="mb-3" id="account-logo">
+                <h6 class="fw-bold">MyTube ID</h6>
+            </div>
+            <div class="col-md-7 my-3">
+                <h3 class="fw-bold mb-4">User Creation</h3>
+                <form action="" method="post">
+                    {{!-- Username --}}
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" class="form-control" id="username" value="{{username}}" placeholder="Username" required>
+                        <label for="username">Username</label>
+                    </div>
+
+                    {{!-- Email Address --}}
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="email" value="{{email}}" placeholder="Email Address" required>
+                        <label for="email">Email Address</label>
+                    </div>
+
+                    {{!-- Role Type ID --}}
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="roletypeid" id="roletypeid" aria-label="Role Type ID" required>
+                            <option value="" selected>~ please select an option ~</option>
+                            <option value="1">1 &lpar;normal user&rpar;</option>
+                            <option value="2" class="text-danger">2 &lpar;administrator&rpar;</option>
+                        </select>
+                        <label for="roletypeid">Role Type &lpar;ID&rpar;</label>
+                    </div>
+
+                    {{!-- Phone Number --}}
+                    <div class="form-floating mb-3">
+                        <input type="tel" name="telephone" class="form-control" id="telephone" value="{{users.telephone}}" maxlength="8" placeholder="Phone Number (+65 only)" required>
+                        <label for="telephone">Phone Number &lpar;+65 only&rpar;</label>
+                    </div>
+
+                    {{!-- Password --}}
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    {{!-- Confirm Password --}}
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password2" class="form-control" id="password2" placeholder="Confirm Password" required>
+                        <label for="password2">Confirm Password</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="javascript:history.back()">
+                            <button type="button" class="btn btn-link shadow-none">Cancel</button>
+                        </a>
+
+                        {{!-- Create User Button --}}
+                        <button type="submit" class="btn btn-success shadow-none">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

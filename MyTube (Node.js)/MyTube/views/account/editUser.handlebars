@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-5 my-3 text-center">
+                <img src="/images/logo.png" alt="logo.png" class="mb-3" id="account-logo">
+                <h6 class="fw-bold">MyTube ID</h6>
+            </div>
+            <div class="col-md-7 my-3">
+                <h3 class="fw-bold mb-4">Edit User</h3>
+                <form action="" method="post">
+                    {{!-- Username --}}
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" class="form-control" id="username" value="{{users.username}}" placeholder="Username" required>
+                        <label for="username">Username</label>
+                    </div>
+
+                    {{!-- Email Address --}}
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="email" value="{{users.email}}" placeholder="Email Address" required>
+                        <label for="email">Email Address</label>
+                    </div>
+
+                    {{!-- Phone Number --}}
+                    <div class="form-floating mb-3">
+                        <input type="tel" name="telephone" class="form-control" id="telephone" value="{{users.telephone}}" maxlength="8" placeholder="Phone Number (+65 only)" required>
+                        <label for="telephone">Phone Number &lpar;+65 only&rpar;</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="javascript:history.back()">
+                            <button type="button" class="btn btn-link shadow-none">Cancel</button>
+                        </a>
+
+                        {{!-- Create User Button --}}
+                        <button type="submit" class="btn btn-success shadow-none">Update User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

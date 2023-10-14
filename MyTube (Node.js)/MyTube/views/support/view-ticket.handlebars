@@ -1,0 +1,143 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-5 col-xl-4 mb-3">
+        {{!-- Ticket Information --}}
+        <div class="card">
+            <div class="card-header">
+                <p class="fw-bold m-0">Ticket ID: #{{tickets.id}}</p>
+            </div>
+            <div class="card-body">
+                <p>
+                    <span class="fw-bold">Subject: </span>{{tickets.ticketSubject}}
+                </p>
+                <p>
+                    <span class="fw-bold">Category: </span>{{tickets.ticketCategory}}
+                </p>
+                <p class="m-0">
+                    <span class="fw-bold">Status: </span>
+                    {{#if (eq tickets.ticketStatusId 4)}}
+                    <span class="badge rounded-pill bg-secondary">SOLVED</span>
+                    {{else if (eq tickets.ticketStatusId 3)}}
+                    <span class="badge rounded-pill bg-info text-dark">IN PROGRESS</span>
+                    {{else if (eq tickets.ticketStatusId 2)}}
+                    <span class="badge rounded-pill bg-warning text-dark">AWAITING YOUR RESPONSE</span>
+                    {{else}}
+                    <span class="badge rounded-pill bg-success">OPEN</span>
+                    {{/if}}
+                </p>
+                <hr>
+                <p>
+                    <span class="fw-bold">Created On: </span>{{date tickets.createdAt "YYYY/MM/DD, HH:mm:ss"}}
+                </p>
+                <p>
+                    <span class="fw-bold">Last Updated: </span>{{date tickets.updatedAt "YYYY/MM/DD, HH:mm:ss"}}
+                </p>
+                <hr>
+                {{#if (eq tickets.ticketStatusId 4)}}
+                <div class="d-grid">
+                    <a class="btn btn-danger shadow-none" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete Ticket</a>
+                </div>
+                {{else}}
+                <div class="d-grid mt-2 mb-1">
+                    <button type="button" class="btn btn-warning shadow-none" data-bs-toggle="modal" data-bs-target="#solvedConfirmationModal">Mark Ticket as Solved</button>
+                </div>
+                <div class="d-grid">
+                    <a class="btn btn-danger shadow-none" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete Ticket</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-7 col-xl-8">
+        {{!-- Add a div with helpers function to hide it if ticket is solved --}}
+        {{#if (eq tickets.ticketStatusId 4)}}
+        <p class="fw-bold">
+            <i class="fa-solid fa-check-to-slot me-1"></i>This ticket is marked as solved.
+        </p>
+        <p>Please create a new ticket referencing this ticket ID should you require further assistance on this case. If you have previously submitted sensitive data using this ticket, you may delete it using the 'Delete Ticket' option.</p>
+        {{else}}
+        <form action="" method="post">
+            <div class="form-floating mb-2">
+                <textarea class="form-control" name="conversation" id="conversation" placeholder="Add a reply to your ticket" maxlength="1000" style="height: 100px;" required></textarea>
+                <label for="conversation" class="form-label">Add a reply to your ticket &lpar;max characters: 1000&rpar;</label>
+            </div>
+            <button type="submit" class="btn btn-success shadow-none">Add Reply</button>
+        </form>
+        {{/if}}
+
+        <hr>
+
+        <p class="fw-bold">Conversation History:</p>
+        {{!-- Display Ticket Replies --}}
+        {{#each conversations}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="fw-bold mb-0">By: {{user.username}}</p>
+                <small>on {{date createdAt "YYYY/MM/DD, HH:mm:ss"}}</small>
+                <hr>
+                <div class="multiline">{{conversation}}</div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{!-- Display Original Message --}}
+        <div class="card text-dark bg-light mb-3">
+            <div class="card-header">
+                <p class="mb-0 fw-bold">Original Message</p>
+            </div>
+            <div class="card-body">
+                <div class="multiline">{{tickets.ticketMessage}}</div>
+            </div>
+        </div>
+
+        <p class="text-center fst-italic pt-3">~ looks like you have reached the end ~</p>
+    </div>
+    
+    {{!-- Modal (to mark ticket as solved) --}}
+    <div class="modal fade" id="solvedConfirmationModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="solvedConfirmationModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="solvedConfirmationModalLabel">
+                        <i class="fa-solid fa-circle-question me-1"></i>Mark Ticket as Solved?
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>Once marked as solved, you can no longer add replies to this ticket.</p>
+                    <p class="mb-0">Please create a new ticket referencing this ticket ID should you require assistance concerning the same issue.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link shadow-none" data-bs-dismiss="modal">No</button>
+                    <form action="/support/mark-solved/{{tickets.id}}" method="post">
+                        <button type="submit" class="btn btn-warning shadow-none">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Modal (to confirm ticket deletion) --}}
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="deleteConfirmationModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="deleteConfirmationModalLabel">
+                        <i class="fa-solid fa-trash me-1"></i>Delete Ticket?
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>We recommend deleting this ticket only if you have submitted sensitive information and are concerned about your privacy and security.</p>
+                    <p>Otherwise, we strongly suggest you keep this ticket for easier reference in the future when contacting us.</p>
+                    <small class="fw-bold text-danger">&ast;Deletion is permanent and irrecoverable. No one, including MyTube's staff, can recover this support ticket.</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link shadow-none" data-bs-dismiss="modal">No</button>
+                    <form action="/support/delete-ticket/{{tickets.id}}" method="post">
+                        <button type="submit" class="btn btn-danger shadow-none">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,7 @@
+.video-js .vjs-big-play-button {
+    display: none;
+}
+.vjs-default-skin.vjs-paused .vjs-control-bar
+{
+    display: flex;
+}

@@ -1,0 +1,89 @@
+{{#if users}}
+<div class="row align-items-center">
+    <div class="col-md-5 my-3 text-center">
+        <img src="/images/logo.png" alt="logo.png" class="mb-3" id="account-logo">
+        <h6 class="fw-bold">MyTube ID</h6>
+    </div>
+    <div class="col-md-7 my-3">
+        {{#each users}}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="fw-bold my-1">
+                    <i class="fa-solid fa-user me-2"></i>Account Information
+                </h4>
+            </div>
+            <div class="card-body">
+                {{!-- Display username --}}
+                <div class="mb-3">
+                    <p>
+                        <span class="fw-bold">Username: </span>{{username}}
+                    </p>
+                </div>
+
+                {{!-- Display email address --}}
+                <div class="mb-3">
+                    <p>
+                        <span class="fw-bold">Email Address: </span>{{email}}
+                    </p>
+                </div>
+
+                {{!-- Display phone number --}}
+                <div>
+                    <p class="mb-0">
+                        <span class="fw-bold">Phone Number: </span>{{telephone}}
+                    </p>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                {{!-- Edit profile --}}
+                <li class="list-group-item">
+                    <a href="/account/editProfiles/{{id}}" class="account-a fw-bold text-dark">
+                        <i class="fa-solid fa-user-pen me-1"></i>Edit Profile
+                    </a>
+                </li>
+
+                {{!-- Change password --}}
+                <li class="list-group-item">
+                    <a href="/account/changePassword/{{id}}" class="account-a fw-bold text-dark">
+                        <i class="fa-solid fa-key me-2"></i>Change Password
+                    </a>
+                </li>
+
+                {{!-- Delete account --}}
+                <li class="list-group-item">
+                    <a href="" class="account-a fw-bold text-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
+                        <i class="fa-solid fa-user-slash me-1"></i>Delete Account
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        {{!-- Modal (to confirm account deletion) --}}
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="deleteConfirmationModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="deleteConfirmationModalLabel">
+                            <i class="fa-solid fa-user-slash me-1"></i>Delete Account?
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>We're sorry to see you go!</p>
+                        <p>If you ever decide to venture with us again, you may create an account again using the same email address.</p>
+                        <small class="fw-bold text-danger">&ast;Account deletion is permanent. Your data will be wiped from our database and are irrecoverable. We may, however, store some data where necessary, as stated in our Privacy Policy.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-bs-dismiss="modal">No</button>
+                        <form action="/account/deleteUser/{{id}}" method="get">
+                            <button type="submit" class="btn btn-danger">Confirm Account Deletion</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{else}}
+<h3>ERROR: User not found</h3>
+{{/if}}

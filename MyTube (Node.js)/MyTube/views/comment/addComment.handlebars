@@ -1,0 +1,39 @@
+<h2 class="fw-bold text-center mb-3">Comment Manager</h2>
+
+<div class="dropdown">
+	<button class="btn btn-success shadow-none dropdown-toggle" type="button" id="videoDropdownList" data-bs-toggle="dropdown" aria-expanded="false">Video Filter</button>
+	<hr>
+	<ul class="dropdown-menu dropdown-menu-light" id="comment-dd" aria-labelledby="videoDropdownList">
+		{{#if videos}}
+		{{#each videos}}
+		<li>
+			<a href="?sort={{this.id}}" class="dropdown-item" id="comment-a">{{this.title}}</a>
+		</li>
+		{{/each}}
+		{{else}}
+		<li>
+			<a class="dropdown-item disabled" id="comment-a">No videos found</a>
+		</li>
+		{{/if}}
+	</ul>
+</div>
+
+{{#if comments}}
+{{#each comments}}
+<div class="user-info">
+	<div class="d-flex flex-column justify-content-start ml-2">
+		<span class="d-block fw-bold name">
+			{{this.user.username}}
+			<a href="/comment/SuperiordeleteComment/{{id}}">
+				<i class="fa fa-trash"></i>
+			</a>
+		</span>
+		<small class="date text-black-50">on {{date this.updatedAt "MMM DD, YYYY (HH:mm:ss A)"}}</small>
+		<div class="multiline mt-2" style="word-wrap: break-word;">{{comment}}</div>
+	</div>
+</div>
+<hr class="mb-2">
+{{/each}}
+{{else}}
+<p>No comments found.</p>
+{{/if}}
